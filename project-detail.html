@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Project Detail | Persona 3 Reload Portfolio</title>
+  <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+  <meta name="theme-color" content="#001233">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="fonts/Rodin Pro EB.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap"></noscript>
+  <link rel="stylesheet" href="css/style.css?v=38">
+  <style>
+    /* Styling khusus Project Detail Page Persona 3 Reload */
+    body.project-detail-screen {
+      background: #000c1e;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .detail-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 4.5vh 5vw 4vh 5vw;
+      box-sizing: border-box;
+    }
+
+    .detail-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      margin-bottom: 2.5rem;
+    }
+
+    .detail-left-header {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-profile-name {
+      font-family: var(--font-rodin), var(--font-expressway), sans-serif;
+      font-size: clamp(0.95rem, 1.1vw, 1.25rem);
+      font-weight: 700;
+      font-style: italic;
+      color: #7de6fd;
+      letter-spacing: 0.22em;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Main Content Layout */
+    .detail-main-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: start;
+      margin-bottom: 3rem;
+    }
+
+    /* Angled Card Style for Detail */
+    .detail-card {
+      background: rgba(3, 22, 60, 0.88);
+      border: 2px solid rgba(22, 207, 251, 0.45);
+      border-left: 6px solid #16cffb;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(22, 207, 251, 0.15);
+      padding: 2.2rem 2.6rem;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 97% 100%, 0% 100%);
+      transform: skewX(-2deg);
+      transition: border-color 0.3s ease;
+    }
+
+    .detail-card > * {
+      transform: skewX(2deg);
+    }
+
+    .detail-meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #e60026;
+      color: #ffffff;
+      padding: 0.25rem 0.85rem;
+      font-family: var(--font-rodin), sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+    }
+
+    .detail-project-title {
+      font-family: var(--font-rodin), sans-serif;
+      font-size: clamp(2.2rem, 3.2vw, 3.5rem);
+      font-weight: 900;
+      font-style: italic;
+      color: #ffffff;
+      line-height: 1.1;
+      margin: 0 0 0.8rem 0;
+      text-shadow: 0 0 20px rgba(22, 207, 251, 0.4);
+    }
+
+    .detail-project-tagline {
+      font-family: var(--font-new-rodin), sans-serif;
+      font-size: 1.15rem;
+      color: #7de6fd;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.8rem;
+    }
+
+    .detail-divider {
+      height: 2px;
+      background: linear-gradient(90deg, #16cffb, rgba(22, 207, 251, 0.1));
+      margin-bottom: 1.8rem;
+    }
+
+    .detail-text-block {
+      font-family: var(--font-new-rodin), sans-serif;
+      color: #d8eaff;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-text-block strong {
+      color: #ffffff;
+    }
+
+    /* Side / Info Column */
+    .detail-side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .detail-info-box {
+      background: rgba(3, 16, 45, 0.85);
+      border: 1px solid rgba(22, 207, 251, 0.3);
+      padding: 1.6rem 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .detail-info-heading {
+      font-family: var(--font-rodin), sans-serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #16cffb;
+      letter-spacing: 0.15em;
+      margin: 0 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .detail-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .detail-tag {
+      background: rgba(22, 207, 251, 0.12);
+      border: 1px solid rgba(22, 207, 251, 0.4);
+      color: #ffffff;
+      padding: 0.35rem 0.8rem;
+      font-family: var(--font-new-rodin), sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* Actions */
+    .detail-actions-row {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .p3r-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: #16cffb;
+      color: #000c1e;
+      padding: 0.85rem 1.8rem;
+      font-family: var(--font-rodin), sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+      box-shadow: 0 0 20px rgba(22, 207, 251, 0.35);
+    }
+
+    .p3r-btn-primary:hover {
+      background: #ffffff;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Bottom HUD */
+    .detail-bottom-hud {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 100%;
+      padding-top: 1rem;
+    }
+
+    .detail-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-family: var(--font-new-rodin), sans-serif;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      transition: transform 0.15s ease;
+    }
+
+    .detail-back-btn:hover {
+      transform: translateX(-4px);
+    }
+
+    @media (max-width: 900px) {
+      .detail-main-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body class="project-screen-active project-detail-screen">
+
+  <!-- Atmospheric Side Vignette -->
+  <div class="p3r-global-vignette" aria-hidden="true"></div>
+
+  <!-- Video Background (Consistent Persona 3 Wallpaper) -->
+  <div class="slink-video-container" style="position: fixed; inset: 0; z-index: 1;" aria-hidden="true">
+    <video id="detail-bg-video" class="slink-bg-video" autoplay loop muted playsinline>
+      <source src="assets/makoto-wallpaper.mp4" type="video/mp4">
+    </video>
+    <div class="slink-video-overlay" style="position: absolute; inset: 0; background: rgba(0, 10, 28, 0.75);" aria-hidden="true"></div>
+  </div>
+
+  <!-- Main Detail Viewport -->
+  <div class="detail-container">
+    
+    <!-- Header Section -->
+    <div class="detail-header-row">
+      <div class="detail-left-header">
+        <div class="detail-profile-name">FIRDINAL JULIANDRE</div>
+
+        <!-- P3R Geometric Slash Header -->
+        <div class="p3r-geometric-header animating" style="position: relative;">
+          <div class="p3r-shard-back-band" aria-hidden="true"></div>
+          <div class="p3r-shard-cyan-peak" aria-hidden="true"></div>
+          <div class="p3r-shard-right-cyan" aria-hidden="true"></div>
+          <div class="p3r-header-slash-main" aria-hidden="true"></div>
+          <div class="p3r-shard-float p3r-shard-float-1" aria-hidden="true"></div>
+          <div class="p3r-shard-float p3r-shard-float-2" aria-hidden="true"></div>
+          <h1 class="p3r-banner-title" id="banner-title">PROJECT DETAIL</h1>
+        </div>
+      </div>
+
+      <!-- Roman Numeral Accent -->
+      <div id="project-numeral" style="font-family: var(--font-rodin); font-size: 5rem; font-weight: 900; font-style: italic; color: rgba(22, 207, 251, 0.2); line-height: 1;">
+        I
+      </div>
+    </div>
+
+    <!-- Main Detail Layout -->
+    <div class="detail-main-layout">
+      <!-- Left: Core Project Details -->
+      <div class="detail-card">
+        <div class="detail-meta-badge" id="project-meta-badge">SYSTEM ARCHIVE // DUMMY DATA</div>
+        <h2 class="detail-project-title" id="project-title">PROJECT 01</h2>
+        <div class="detail-project-tagline" id="project-tagline">Dummy Project Description & Overview</div>
+        
+        <div class="detail-divider"></div>
+
+        <div class="detail-text-block" id="project-desc-1">
+          This is a dummy project entry designed for showcase purposes. It features a complete architecture overview, responsive interface implementation, and stylized interactive elements tailored to match the Persona 3 Reload aesthetic.
+        </div>
+
+        <div class="detail-text-block" id="project-desc-2">
+          <strong>Key Highlights:</strong> High performance rendering, modular component hierarchy, custom sound effects trigger, and fluid CSS transitions. You can customize this project's full description, links, and assets anytime.
+        </div>
+
+        <div class="detail-actions-row">
+          <a id="project-live-btn" href="#" class="p3r-btn-primary">
+            <span>EXPLORE DEMO</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Meta Information -->
+      <div class="detail-side-column">
+        <!-- Tech Stack Box -->
+        <div class="detail-info-box">
+          <h3 class="detail-info-heading">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            TECH STACK
+          </h3>
+          <div class="detail-tags-row" id="project-tags">
+            <span class="detail-tag">HTML5 / Modern CSS</span>
+            <span class="detail-tag">Vanilla JavaScript</span>
+            <span class="detail-tag">Web Audio API</span>
+            <span class="detail-tag">SVG Animation</span>
+            <span class="detail-tag">Responsive UI</span>
+          </div>
+        </div>
+
+        <!-- Project Info Box -->
+        <div class="detail-info-box">
+          <h3 class="detail-info-heading">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            SPECIFICATIONS
+          </h3>
+          <div style="font-family: var(--font-new-rodin); font-size: 0.9rem; color: #b4d8f5; line-height: 1.8;">
+            <div><strong>Status:</strong> <span id="project-status" style="color: #16cffb;">Completed / Active</span></div>
+            <div><strong>Category:</strong> <span id="project-category">Frontend & UI Engineering</span></div>
+            <div><strong>Year:</strong> <span id="project-year">2026</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom HUD Back Button -->
+    <div class="detail-bottom-hud">
+      <div class="buttons-row">
+        <button id="detail-back-btn" class="control-item slink-hud-btn" onclick="goBack()" aria-label="Back to Projects">
+          <div class="control-key">ESC</div>
+          <span class="control-text">Back</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <audio id="sfx-nav" src="sfx/navigation.wav" preload="auto"></audio>
+  <audio id="sfx-close" src="sfx/close-menu.mp3" preload="auto"></audio>
+
+  <script>
+    // Audio trigger
+    function playSFX(audioId) {
+      try {
+        const audio = document.getElementById(audioId);
+        if (audio) {
+          audio.currentTime = 0;
+          audio.volume = 0.5;
+          audio.play().catch(() => {});
+        }
+      } catch (e) {}
+    }
+
+    function goBack() {
+      playSFX('sfx-close');
+      setTimeout(() => {
+        window.location.href = "index.html?page=project";
+      }, 150);
+    }
+
+    // Keyboard navigation (ESC / Backspace to return)
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" || e.key === "Backspace") {
+        e.preventDefault();
+        goBack();
+      }
+    });
+
+    // Dummy Projects Database
+    const projectsData = {
+      1: {
+        numeral: "I",
+        title: "PROJECT 01",
+        tagline: "High-Fidelity Interface Prototype & Interactive Component System",
+        desc1: "Project 01 is an experimental frontend showcase focused on micro-interactions, responsive fluidity, and game-inspired design aesthetics.",
+        desc2: "Key Highlights: Built using modular vanilla architectures with hardware-accelerated transforms, crisp SVG vector assets, and synchronized audio feedback.",
+        tags: ["HTML5", "Modern CSS", "Vanilla JavaScript", "Web Audio API", "P3R Engine"],
+        status: "Completed",
+        category: "Frontend & UI Engineering",
+        year: "2026",
+        demoUrl: "#"
+      },
+      2: {
+        numeral: "II",
+        title: "PROJECT 02",
+        tagline: "Dynamic Web Application & State-Driven Architecture",
+        desc1: "Project 02 demonstrates complex client-side state handling, responsive data visualization, and streamlined user navigation flows.",
+        desc2: "Key Highlights: Optimized rendering cycle, component reusability, accessibility compliant contrast ratios, and seamless mobile responsiveness.",
+        tags: ["JavaScript / TypeScript", "Tailwind CSS", "REST API", "UI/UX Design"],
+        status: "Completed",
+        category: "Web Application",
+        year: "2026",
+        demoUrl: "#"
+      },
+      3: {
+        numeral: "III",
+        title: "PROJECT 03",
+        tagline: "Typography & Creative Design Playground",
+        desc1: "Project 03 explores dynamic typographic manipulation, cut-out font rendering, and custom graphic rasterization algorithms.",
+        desc2: "Key Highlights: Canvas rendering engine, instant preview generation, downloadable vector/PNG outputs, and interactive controls.",
+        tags: ["HTML5 Canvas", "Typography Engine", "SVG Manipulation", "Modern CSS"],
+        status: "Completed",
+        category: "Creative Tooling",
+        year: "2026",
+        demoUrl: "#"
+      },
+      4: {
+        numeral: "IV",
+        title: "PROJECT 04",
+        tagline: "Simulation Engine & Interactive Testing Platform",
+        desc1: "Project 04 is a testing simulator featuring real-time timers, adaptive score calculations, and high-contrast neumorphic UI palettes.",
+        desc2: "Key Highlights: High-performance client-side calculation, local storage persistence, modular test question bank, and smooth analytics graphs.",
+        tags: ["Web Architecture", "Neumorphism UI", "Analytics Grid", "Interactive Forms"],
+        status: "In Development",
+        category: "Simulation & EdTech",
+        year: "2026",
+        demoUrl: "#"
+      },
+      5: {
+        numeral: "V",
+        title: "PROJECT 05",
+        tagline: "Modern Agency Showcase & Performance-First Web Platform",
+        desc1: "Project 05 is a high-performance modern web platform crafted with fluid animations, sleek dark-mode aesthetics, and clean architecture.",
+        desc2: "Key Highlights: 100/100 Lighthouse performance metrics, SEO-optimized markup, smooth scroll-triggered reveal animations, and minimal bundle size.",
+        tags: ["Performance Optimization", "Responsive Design", "Modern Layouts", "CSS Grid"],
+        status: "Completed",
+        category: "Creative Agency Platform",
+        year: "2026",
+        demoUrl: "#"
+      }
+    };
+
+    // Load URL params (?id=1..5)
+    document.addEventListener("DOMContentLoaded", () => {
+      playSFX('sfx-nav');
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id") || "1";
+      const data = projectsData[id] || projectsData[1];
+
+      document.getElementById("page-title").textContent = `${data.title} | Persona 3 Reload Portfolio`;
+      document.getElementById("project-numeral").textContent = data.numeral;
+      document.getElementById("project-title").textContent = data.title;
+      document.getElementById("project-tagline").textContent = data.tagline;
+      document.getElementById("project-desc-1").textContent = data.desc1;
+      document.getElementById("project-desc-2").innerHTML = `<strong>Key Highlights:</strong> ${data.desc2.replace('Key Highlights: ', '')}`;
+      document.getElementById("project-status").textContent = data.status;
+      document.getElementById("project-category").textContent = data.category;
+      document.getElementById("project-year").textContent = data.year;
+
+      const liveBtn = document.getElementById("project-live-btn");
+      if (data.demoUrl && data.demoUrl !== "#") {
+        liveBtn.href = data.demoUrl;
+        liveBtn.target = "_blank";
+      } else {
+        liveBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          playSFX('sfx-nav');
+        });
+      }
+
+      const tagsContainer = document.getElementById("project-tags");
+      tagsContainer.innerHTML = "";
+      data.tags.forEach(tag => {
+        const span = document.createElement("span");
+        span.className = "detail-tag";
+        span.textContent = tag;
+        tagsContainer.appendChild(span);
+      });
+    });
+  </script>
+</body>
+</html>
