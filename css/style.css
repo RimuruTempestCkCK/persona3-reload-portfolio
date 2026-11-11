@@ -2134,8 +2134,25 @@ body.about-screen-active .character-viewport {
 }
 
 /* ==========================================================================
-   GLOBAL SIDE VIGNETTE (Hitam Pudar di Samping Samping Website di Setiap Page)
+   HIDE / OVERRIDE HOSTING AD / FOOTER (.server-footer-ad)
    ========================================================================== */
+.server-footer-ad,
+[class*="server-footer-ad"],
+div[id*="server-footer-ad"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  z-index: -99999 !important;
+  clip: rect(0, 0, 0, 0) !important;
+}
+
 .p3r-global-vignette {
   position: fixed;
   inset: 0;

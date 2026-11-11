@@ -1668,3 +1668,27 @@ if (window.innerWidth < 1024) {
 } else {
   startLoadingSequence();
 }
+
+// Auto-remove hosting banner / footer ad (.server-footer-ad) if injected dynamically
+(function purgeServerFooterAd() {
+  const removeAds = () => {
+    const ads = document.querySelectorAll('.server-footer-ad, [class*="server-footer-ad"], div[id*="server-footer-ad"]');
+    ads.forEach(ad => ad.remove());
+  };
+  removeAds();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', removeAds);
+  }
+  const observer = new MutationObserver((mutations) => {
+    let shouldCheck = false;
+    for (const m of mutations) {
+      if (m.addedNodes.length > 0) {
+        shouldCheck = true;
+        break;
+      }
+    }
+    if (shouldCheck) removeAds();
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+})();
+
